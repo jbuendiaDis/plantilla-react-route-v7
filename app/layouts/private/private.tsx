@@ -1,44 +1,20 @@
-import { useNavigate, Outlet, useLocation } from "react-router";
-import { useEffect, useState } from "react";
+import { redirect } from "react-router";
+import { Outlet } from "react-router";
+import { getUserId } from "~/logic/services/session/session.server";
+import type { Route } from "./+types/dashboard";
 
-export default function PrivateLayout() {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
-  const location = useLocation();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        
-        if (!token) {
-          setIsAuthenticated(false);
-          return;
-        }
-
-        // const response = await fetch("/api/validate-token", {
-        //   headers: { Authorization: `Bearer ${token}` }
-        // });
-        // setIsAuthenticated(response.ok);
-
-        setIsAuthenticated(true); // Temporary: Replace with actual validation
-      } catch (error) {
-        console.error("Auth check failed:", error);
-        setIsAuthenticated(false);
-      }
-    };
-
-    checkAuth();
-  }, []);
-
-  if (isAuthenticated === null) {
-    return <div>Loading...</div>;
+export async function loader({ request }: { request: Request }) {
+  // Check for token in cookies instead of localStorage since this runs on server
+  const userId = await getUserId(request);
+  if (!userId) {
+    throw redirect("/auth");
+  } else {
+    return { userId };
   }
+}
 
-  if (!isAuthenticated) {
-    navigate("/auth/register"); // Redirect specifically to the login route
-    return null;
-  }
-
-  return <Outlet />;
+// Componente del cliente
+export default function PrivateLayout({ loaderData }: Route.ComponentProps) {
+  const { userId } = loaderData;
+  return userId ? <Outlet /> : null;
 }
