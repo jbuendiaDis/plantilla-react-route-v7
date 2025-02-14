@@ -5,7 +5,7 @@ export default [
     layout("./layouts/public/public.tsx",[
         ...prefix("auth",[
         index("routes/login.tsx"),
-        route("register","routes/register.tsx"),
+        route("forgot-password","routes/forgot-password.tsx"),
         ]),
     ]),
     layout("./layouts/private/private.tsx",[
