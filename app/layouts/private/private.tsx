@@ -63,10 +63,10 @@ export default function PrivateLayout({ loaderData }: Route.ComponentProps) {
 
       {/* Sidebar */}
       <aside 
-        className={`fixed lg:static left-0 top-0 z-40 h-screen transition-all duration-300 ease-in-out border-r
+        className={`fixed lg:static left-0 top-0 z-40 h-screen transition-all duration-300 ease-in-out border-r 
           ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
-          ${isSidebarCollapsed ? 'w-20 lg:w-20' : 'w-80'}
-          ${theme === 'light' ? 'bg-white border-gray-200' : 'bg-gray-800 border-gray-700'} shadow-xl`}
+          ${isSidebarCollapsed ? 'w-20 lg:w-20' : 'xl:w-78 lg:w-55' }
+          ${theme === 'light' ? 'bg-white border-gray-200' : 'bg-gray-800 border-gray-700'} shadow-xl border-r border-r-gray-200 dark:border-r-gray-200`}
         onMouseEnter={() => {
           if (window.innerWidth >= 1024 && isSidebarCollapsed && !isMobileMenuActive) {
             setIsSidebarCollapsed(false);
@@ -78,13 +78,15 @@ export default function PrivateLayout({ loaderData }: Route.ComponentProps) {
           }
         }}
       >
-        <div className="flex flex-col h-full justify-start items-start p-2">
-          <Logo 
-            collapsed={isSidebarCollapsed}
-            mobileLogo={logoMobile}
-            desktopLogo={logo}
-            isMobileMenuActive={isMobileMenuActive}
-          />
+        <div className="flex flex-col h-full justify-start items-start">
+          <div className={`w-full border-b ${theme === 'light' ? 'border-gray-200' : 'border-gray-700'}`}>
+            <Logo 
+              collapsed={isSidebarCollapsed}
+              mobileLogo={logoMobile}
+              desktopLogo={logo}
+              isMobileMenuActive={isMobileMenuActive}
+            />
+          </div>
           <NavigationMenu isSidebarCollapsed={isSidebarCollapsed} />
         </div>
         <button

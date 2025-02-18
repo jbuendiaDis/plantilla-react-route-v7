@@ -7,7 +7,7 @@ interface LogoProps {
 
 export function Logo({ collapsed, mobileLogo, desktopLogo, isMobileMenuActive }: LogoProps) {
   return (
-    <div className="flex items-center justify-center h-20 px-2">
+    <div className="flex items-start justify-start h-18 px-4 py-2">
       <img 
         src={!isMobileMenuActive && collapsed ? mobileLogo : desktopLogo} 
         alt="Logo" 

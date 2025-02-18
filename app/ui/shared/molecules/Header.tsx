@@ -11,7 +11,7 @@ export function Header({ onToggleSidebar, isSidebarCollapsed }: HeaderProps) {
   const { theme } = useTheme();
 
   return (
-    <header className={`${theme === 'light' ? 'bg-white' : 'bg-gray-800'} shadow-sm h-16`}>
+    <header className={`${theme === 'light' ? 'bg-white' : 'bg-gray-800'} shadow-sm h-18`}>
       <div className="flex items-center justify-between px-4 h-full">
         <div className="flex items-center space-x-4">
           <button
